@@ -1,0 +1,20 @@
+\chapter{Hoved koncepter}
+
+Til udviklingen af Converge er forskellige informations sikkerheds koncepter taget i betragtning. Disse koncepter er CIA (Confidentiality, Integrity og Availability). Disse danner grundelementerne for sikkerhed.
+
+\section{Confidentiality}
+
+Confidentiality betyder konfidentialitet og betyder at den information gemt ikke er tilgængeligt til uauthoriserede enheder. konfidentialitet er en af grunstenene til privathed. I forhold til converge, efterleves konfidentialitet via. Authentifikation og authorisation, via. Json Web Tokens. Hvilket er en authorisations protokol, men er ustedet via. authentifikation via. email og password. JWT token indeholder de rettigheder den enkelte bruger har, og er samtidig selv beskyttet via. signering med en secret fra authentication-service. Denne signering kan derefter valideres af de andre services for at verificerere at JWT token ikke er modificeret, og er udstedet af egen service.
+
+\section{Integrity}
+
+Integritet er en vigtig del af sikkerhed, og beskriver det at data og andre elementer ikke bliver ændret pga. uregelmæssige årsager. I forhold til Converge er dette efterlevet, ved at en datastore kun kan ændres af en type service, og derfor ikke ændres uden dets tilladelse. Det samme gælder JWT tokens som bliver valideret for deres integritet.
+
+\section{Availability}
+
+Tilgængelighed betyder at systemet skal være tilgængeligt når en bruger ønsker adgang, samt har adgang. Converge projektet har prøvet at gøre produktet så fremtids sikret som mulighed, ved at implementere platformen via. microservices, og brug af kubernetes, med dets autoskalerings elementer.
+
+\section{Andre}
+
+Ovenfor er de tre vigtigste dele af informationssikkerhed, men de er ikke de eneste som er defineret, der er bla. Auditability,  hvilket er implementeret via. Audit-service. Som skal gøre at en brugers handlinger kan verificeres og spores, eventuelt i forhold til lov og sikkerhedsmæssige grunde.
+

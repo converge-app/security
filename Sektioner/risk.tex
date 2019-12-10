@@ -1,0 +1,39 @@
+\chapter{Risk}
+
+Risiko analyse er et vigtigt værktøj for et firma eller entitet, da det ikke er muligt at lukke alle huller i et system. Da Converge er et greenfield projekt uden aktuelle brugere, er dette ikke nær så vigtigt, men eventuelle risikoer er stadig analyseret og beskrevet i denne sektion.
+
+\begin{itemize}
+    \item VE-01 RBAC, not enabled for systemlevelusers vs endusers
+    \item VE-02 JWT token :sub, not used in all cases of user validation
+    \item VE-03 Services should interconnected by a protocol, ingress or a message bus, some endpoints should be exposed, others should not.
+    \item VE-04 A user can edit another persons profile via. the converge-SPA
+    \item VE-05, A file could be uploaded to Google Cloud Resource without us knowning what the contents are.
+\end{itemize}
+
+De tidligere vulnerabilities er beskrevet på engelsk fordi de er hentet fra GitBooks, hvilket er teamets samarbejdsplatform og er skrevet på engelsk for at gøre det muligt for en tredjepart at deltage i arbejdet. Disse vulnerabilities er tildelt en score fra 1-5 hvor 1 er minimal eller triviel trussel og 5 er eventuelt katastrofalt.
+
+\begin{itemize}
+    \item VE-01 \textbf{3}
+    \item VE-02 \textbf{5}
+    \item VE-03 \textbf{2}
+    \item VE-04 \textbf{2}
+    \item VE-05 \textbf{1}
+\end{itemize}
+
+Nogle af disse vulnerabilities er trivielle at lave, andre tager lang tid, i dette tilfælde er scoreren beskrevet pga. omfanget af dets effekt. For en grundigere begrundelse se VE-01-05 på GitBooks.
+
+\section{Adgangskontrol}
+
+Til Converge er der brugt adgangskontrol, bla. identifikation, authentifikation og authorisation.
+
+Identifikation er givet via. Stripes validering af identitet, derfor kan en bruger som ikke siger hvem de er ikke få adgang til betalings services.
+
+Authentifikation er given via. authentication-service hvilket tilbyder et endpoint til at få udstedt et JWT token.
+
+Authorisation bliver givet via. JWT token, som indeholder de rettigheder en bruger har i systemet.
+
+\section{Kryptografi}
+
+Til systemet er der brug adskillelige kryptograpfiske elementer, bla. til JWT, password hashing, TLS mm.
+
+Til JWT er der brugt et HMACSHA256 cipher til at signerere indeholdet af denne token. Til password hashing er der brugt Bcrypt, hvilket er en blowfish cipher, der kan iterere mange gange over samme hash, så en eventuel hacker skal bruge lang tid på at få fat i indholdet. Til TLS er der brugt AES, hvilket håndteres af Traefik og LetsEncrypt.
